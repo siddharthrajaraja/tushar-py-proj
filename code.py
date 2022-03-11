@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-PROJECT_NAME = "MY UNIVERSITY"
-INSTIUTION_TYPE = "UNIVERSITY"
+PROJECT_NAME = "STUDENTS MANAGEMENT SYSTEM"
+INSTIUTION_TYPE = "SCHOOL"
 NAME = "name"
 ROLL = "roll"
 ADDRESS = "address"
