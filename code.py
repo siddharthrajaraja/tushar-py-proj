@@ -111,6 +111,44 @@ def delete_student(roll_number):
     print(student_df)
 
 
+def modify_student_details(roll_no):
+    global student_df
+
+    student_dict = dict()
+    student_name = input("UPDATE STUDENT NAME : ")
+    student_roll = roll_no
+    student_address = input("UPDATE STUDENT ADDRESS : ")
+    student_mobile = input("UPDATE MOBILE NUMBER : ")
+    student_english_marks = float(input("UPDATE ENGLISH MARKS (OUT OF 100) : "))
+    student_hindi_marks = float(input("UPDATE HINDI MARKS (OUT OF 100) : "))
+    student_maths_marks = float(input("UPDATE MATHS MARKS (OUT OF 100) : "))
+    student_sst_marks = float(input("UPDATE SST MARKS (OUT OF 100) : "))
+    student_science_marks = float(input("UPDATE SCIENCE MARKS (OUT OF 100) : "))
+
+    if (
+        student_english_marks < 0
+        or student_hindi_marks < 0
+        or student_maths_marks < 0
+        or student_science_marks < 0
+        or student_sst_marks < 0
+    ):
+        return "\nINVALID MARKS ENTRY"
+    delete_student(roll_no)
+
+    student_dict[NAME] = student_name
+    student_dict[ROLL] = student_roll
+    student_dict[ADDRESS] = student_address
+    student_dict[MOBILE] = student_mobile
+    student_dict[ENGLISH] = student_english_marks
+    student_dict[HINDI] = student_hindi_marks
+    student_dict[MATH] = student_maths_marks
+    student_dict[SST] = student_sst_marks
+    student_dict[SCIENCE] = student_science_marks
+
+    student_df = student_df.append(student_dict, ignore_index=True)
+    return "\n RECORD UPDATED"
+
+
 def main():
 
     global student_df
@@ -129,6 +167,9 @@ def main():
             display_student_details(roll_no)
         elif choice == 3:
             display_students_details()
+        elif choice == 4:
+            roll_no = input("ENTER ROLL NUMBER TO SEARCH : ")
+            print(modify_student_details(roll_no))
         elif choice == 5:
             roll_no = input("ENTER ROLL NUMBER TO SEARCH : ")
             delete_student(roll_no)
