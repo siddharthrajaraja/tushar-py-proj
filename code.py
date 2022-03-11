@@ -50,7 +50,8 @@ def display_student_details(roll_no: str):
     This function displays student details using roll number
     """
     global student_df
-    print(student_df.query(f"roll=={roll_no}"))
+
+    print(student_df[student_df[ROLL] == roll_no])
 
 
 def display_students_details():
@@ -101,6 +102,15 @@ def insert_student_details() -> str:
     return "\nRECORD INSERTED"
 
 
+def delete_student(roll_number):
+    global student_df
+
+    student_df = student_df.loc[student_df[ROLL] != roll_number]
+
+    print("RECORD DELETED")
+    print(student_df)
+
+
 def main():
 
     global student_df
@@ -119,6 +129,9 @@ def main():
             display_student_details(roll_no)
         elif choice == 3:
             display_students_details()
+        elif choice == 5:
+            roll_no = input("ENTER ROLL NUMBER TO SEARCH : ")
+            delete_student(roll_no)
 
 
 if __name__ == "__main__":
