@@ -103,6 +103,9 @@ def insert_student_details() -> str:
 
 
 def delete_student(roll_number):
+    """
+    This function deleted student by its roll number.
+    """
     global student_df
 
     student_df = student_df.loc[student_df[ROLL] != roll_number]
@@ -112,6 +115,9 @@ def delete_student(roll_number):
 
 
 def modify_student_details(roll_no):
+    """
+    This function modifies student record by its roll number.
+    """
     global student_df
 
     student_dict = dict()
