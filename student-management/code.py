@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 FILE_NAME = "student.csv"
 
@@ -23,7 +22,9 @@ def read_file():
     """
     global student_df 
     df = pd.read_csv(FILE_NAME)
-    print(df)
+    student_df = student_df.append(df)
+    print("READ STUDENT INFORMATION FILE FROM FILE")
+    print(student_df)
 
 def print_welcome_message():
     """
