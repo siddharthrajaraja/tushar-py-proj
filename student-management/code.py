@@ -184,16 +184,18 @@ def analyse_student_performance(roll_no):
    This function generates student report card and graphically visualises student marks
    """
    global student_df
-   roll_no = (roll_no)
    df = student_df[student_df[ROLL] == roll_no]
-   student_name = df[NAME][0]
-   data = {
-      MATH: df[MATH][0],
-      ENGLISH: df[ENGLISH][0],
-      HINDI: df[HINDI][0],
-      SST: df[SST][0],
-      SCIENCE: df[SCIENCE][0] 
-   }
+   data={}
+   for _, every in df.iterrows():
+      data[NAME] = every[NAME]
+      data[ENGLISH] = every[ENGLISH]
+      data[HINDI] = every[HINDI]
+      data[MATH] = every[MATH]
+      data[SST] = every[SST]
+      data[SCIENCE] = every[SCIENCE]
+   student_name = data.get(NAME)
+   data.pop(NAME)
+   print(data)
    percentage = get_percentage(data)
    status = "PASSED" if(isPass(percentage)) else "FAILED"
    plt.bar(list(data.keys()),list(data.values()),width=0.5)
@@ -201,7 +203,7 @@ def analyse_student_performance(roll_no):
    plt.ylabel("MARKS OBTAINED OFF 100")
    plt.title(label=f"{student_name} {status} with {percentage}%")
    plt.show()
-
+   
 def analyse_class_performance():
    """
    This function generates a line chart which compares marks obtained by
