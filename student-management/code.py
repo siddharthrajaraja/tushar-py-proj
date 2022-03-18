@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 FILE_NAME = "student.csv"
 
@@ -25,7 +26,8 @@ def read_file():
     student_df = student_df.append(df)
     print("READ STUDENT INFORMATION FILE FROM FILE")
     print(student_df)
-
+    print(student_df.info())
+    
 def print_welcome_message():
     """
     This function prints the welcome message.
@@ -164,6 +166,41 @@ def modify_student_details(roll_no):
     student_df = student_df.append(student_dict, ignore_index=True)
     return "\n RECORD UPDATED"
 
+def get_percentage(marks_dic):
+   """
+   This function gets percentage of all marks obtained by student
+   """
+   return (marks_dic[ENGLISH]+marks_dic[HINDI]+marks_dic[MATH]+marks_dic[SST]+marks_dic[SCIENCE])/len(marks_dic)
+
+def isPass(percentage):
+   """
+   This function prints whether student is passed or fail
+   """
+   return percentage>=33.33
+   
+def analyse_student_performance(roll_no):
+   """
+   This function generates student report card and graphically visualises student marks
+   """
+   global student_df
+   roll_no = (roll_no)
+   df = student_df[student_df[ROLL] == roll_no]
+   student_name = df[NAME][0]
+   data = {
+      MATH: df[MATH][0],
+      ENGLISH: df[ENGLISH][0],
+      HINDI: df[HINDI][0],
+      SST: df[SST][0],
+      SCIENCE: df[SCIENCE][0] 
+   }
+   percentage = get_percentage(data)
+   status = "PASSED" if(isPass(percentage)) else "FAILED"
+   plt.bar(list(data.keys()),list(data.values()),width=0.5)
+   plt.xlabel("SUBJECTS")
+   plt.ylabel("MARKS OBTAINED OFF 100")
+   plt.title(label=f"{student_name} {status} with {percentage}%")
+   plt.show()
+
 
 def main():
 
@@ -191,7 +228,9 @@ def main():
         elif choice == 5:
             roll_no = input("ENTER ROLL NUMBER TO SEARCH : ")
             delete_student(roll_no)
-
+        elif choice == 6:
+            roll_no = input("ENTER ROLL NUMBER TO SEARCH : ")
+            analyse_student_performance(roll_no)
 
 if __name__ == "__main__":
 
