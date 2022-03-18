@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+FILE_NAME = "student.csv"
+
 PROJECT_NAME = "STUDENTS MANAGEMENT SYSTEM"
 INSTIUTION_TYPE = "SCHOOL"
 NAME = "name"
@@ -15,6 +17,13 @@ SCIENCE = "science"
 
 student_df = pd.DataFrame()
 
+def read_file():
+    """
+    This function reads the csv file and stores the student information in pandas dataframe.
+    """
+    global student_df 
+    df = pd.read_csv(FILE_NAME)
+    print(df)
 
 def print_welcome_message():
     """
@@ -158,6 +167,8 @@ def modify_student_details(roll_no):
 def main():
 
     global student_df
+    
+    read_file()
 
     print_welcome_message()
 
