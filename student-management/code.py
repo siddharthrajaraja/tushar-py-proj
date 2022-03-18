@@ -53,6 +53,7 @@ def print_helper_message():
     4) MODIFY STUDENT DETAILS USING ROLL NO\n
     5) DELETE STUDENT DETAILS USING ROLL NO\n
     6) ANALYSE STUDENT PERFORMANCE\n
+    7) ANALYSE CLASS PERFORMANCE\n
     """
     print(message)
 
@@ -201,6 +202,32 @@ def analyse_student_performance(roll_no):
    plt.title(label=f"{student_name} {status} with {percentage}%")
    plt.show()
 
+def analyse_class_performance():
+   """
+   This function generates a line chart which compares marks obtained by
+   different students in different subjects
+   """
+   global student_df
+
+   plt.figure()
+
+   for _,every in student_df.iterrows():
+      student_name = every[NAME]
+      data = {
+         MATH: every[MATH],
+         ENGLISH: every[ENGLISH],
+         HINDI: every[HINDI],
+         SST: every[SST],
+         SCIENCE: every[SCIENCE] 
+      }
+      weeks = data.keys()
+      values = data.values()
+      plt.plot(weeks,values,label=f"{student_name}")
+   plt.ylabel('MARKS OBTAINED')
+   plt.xlabel('SUBJECTS')
+   plt.legend(loc='lower right')
+   plt.title("PERFORMANCE OF CLASS")
+   plt.show()
 
 def main():
 
@@ -231,6 +258,8 @@ def main():
         elif choice == 6:
             roll_no = input("ENTER ROLL NUMBER TO SEARCH : ")
             analyse_student_performance(roll_no)
+        elif choice == 7:
+            analyse_class_performance()
 
 if __name__ == "__main__":
 
